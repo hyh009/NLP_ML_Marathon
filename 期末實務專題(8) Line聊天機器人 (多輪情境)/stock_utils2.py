@@ -57,4 +57,5 @@ def get_selected_info(data,columns,query,symbol_name):
     return message
     
 if __name__ == '__main__':
+    get_stock_name()
   
