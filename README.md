@@ -1,25 +1,29 @@
 # NLP_ML_Marathon
 ## NLP經典機器學習馬拉松 6大學習里程碑◢
 
-[① Python NLP 程式基礎](#A)<br>
+**[① Python NLP 程式基礎](#A)**<br>
 
-[② 詞彙與分詞技術](#B)<br>
+**[② 詞彙與分詞技術](#B)**<br>
 
-[③ NLP 詞性標註](#C)<br>
+**[③ NLP 詞性標註](#C)**<br>
 
-[④ 經典詞彙向量化(詞袋分析/ TF-IDF / SVD&共現矩陣)](#D)<br>
+**[④ 經典詞彙向量化(詞袋分析/ TF-IDF / SVD&共現矩陣)](#D)**<br>
 
-[⑤ NLP 經典機器學習模型](#E)<br>
+**[⑤ NLP 經典機器學習模型](#E)**<br>
 
-[⑥ 期末實務專題](#F)<br>
+**[⑥ 期末實務專題](#F)**<br>
 
 
 ## 學習重點整理
 
 ### <a name="A">① Python NLP 程式基礎</a><br>
 * #### 文字處理函數<br>
-* #### 正規表達式<br>
-★測試pattern可至[Regex101](https://regex101.com/)<br>
+  **[作業 String operation1](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day1-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  **[作業 String operation2](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day2-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+* #### 正規表達式 
+  **[作業 利用正規表達式達到預期配對](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day3_Regex_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
+  **[作業 使用python正規表達式對資料進行清洗處理](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day4_Python_regular_expression_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
+★測試pattern可至[Regex101](https://regex101.com/)**<br>
 
 ### <a name="B">② 詞彙與分詞技術</a><br>
 * #### 斷詞的方法--經典中文斷詞法簡介(jieba)<br>
@@ -33,7 +37,7 @@
   
   ★ **動態規劃(Dynamic Programming)：** 根據jieba字典中的詞頻的**最大機率路徑**得到最後斷詞結果。
     
-**2. 針對不存在於字典的字詞： 隱馬可夫模型(HMM) & 維特比演算法(Viterbi)**<br>
+**2. 針對不存在於字典的字詞： 隱馬可夫模型(HMM) & 維特比演算法(Viterbi) [作業-Viterbi實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day5_%E6%96%B7%E8%A9%9E%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
 
    ★ **<a name="M">馬可夫模型： 從目前狀態轉移 s 到下一個狀態 s' 的機率由 P(s'|s) 來決定 (在 s 的前提下 s’ 發生的機率)</a>**<br>
    
@@ -56,6 +60,13 @@
    
    ★ **維特比(Viterbi)： 使用動態規劃求解隱馬可夫模型預測(求解最大機率路徑)。**<br>
    
+   ※jieba未知詞斷詞是使用**HMM**來判斷斷詞結果。<br>
+   >**隱藏狀態：** {B:begin, M:middle, E:end, S:single}。<br>
+   **觀察狀態：** 所有的詞(包含標點符號)。<br>
+   **初始機率向量(PI 向量)：**  內建 “prob_start.py”。<br>
+   **狀態轉移矩陣：** 內建 “prob_trans.py”，維度大小(BEMS x BEMS)。<br>
+   **發射矩陣：** 內建 “prob_emit.py”。<br>
+   
   
 * #### 中文斷詞套件<br>
 **1. CkipTagger [作業-使用CkipTagger進行各項的斷詞操作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day7_CkipTagger%E4%BD%9C%E6%A5%AD_checkpoint.ipynb)<br>**<br>
@@ -72,21 +83,21 @@
   ★分為精確模式(default)、全模式(斷出全部可能性)、搜尋模式、Paddle模式<br>
 
 * #### N-Gram [作業-N_Gram實作作業](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day9_%E5%9F%BA%E7%A4%8E%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8BN_Gram%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)<br>
-  將文本從頭開始每N個字取一次詞，取得 len(文本)-N+1 長度的序列(當中每個物件為N個字詞)，並計算條件機率。<br>
-  **使用[馬可夫假設](#M)簡化<br>
+將文本從頭開始每N個字取一次詞，取得 len(文本)-N+1 長度的序列(當中每個物件為N個字詞)，並計算條件機率。<br>
+**使用[馬可夫假設](#M)簡化**<br>
   
-  **原始算法↓**<br>
-   > W=(W1W2W3...Wm)<br>
-  P(W1W2W3...Wm) = P(W1) X P(W2|W1) X P(W3|W1,W2) X...X P(Wm|W1,W2...Wm-1) <br>
-  
-  **引入馬可夫假設(僅考慮前一個狀態轉移到下一個狀態的機率)↓**<br>
-   > W=(W1W2W3...Wm)<br>
-  P(Wm|W1,W2...Wm-1) = P(Wm|Wm-n+1,Wm-n+2...Wm-1)<br>
-  
-  常見的 N-Gram 模型有 Unigram(1-gram)，Bigram(2-gram)，Trigram(3-gram)。<br>
-  當N值愈大，對字詞的約束性愈大，具有愈高的辨識力，但同時複雜度也較高，需要更大的文本資料來訓練模型。<br>
-  
-  N-Gram 常用的應用場景像是 **”選字推薦”、”錯字勘正”、”分詞系統”** 等。**[作業-
+**原始算法↓**<br>
+ > W=(W1W2W3...Wm)<br>
+P(W1W2W3...Wm) = P(W1) X P(W2|W1) X P(W3|W1,W2) X...X P(Wm|W1,W2...Wm-1) <br>
+
+**引入馬可夫假設(僅考慮前一個狀態轉移到下一個狀態的機率)↓**<br>
+ > W=(W1W2W3...Wm)<br>
+P(Wm|W1,W2...Wm-1) = P(Wm|Wm-n+1,Wm-n+2...Wm-1)<br>
+
+常見的 N-Gram 模型有 Unigram(1-gram)，Bigram(2-gram)，Trigram(3-gram)。<br>
+當N值愈大，對字詞的約束性愈大，具有愈高的辨識力，但同時複雜度也較高，需要更大的文本資料來訓練模型。<br>
+
+N-Gram 常用的應用場景像是 **”選字推薦”、”錯字勘正”、”分詞系統”** 等。**[作業-
 以Bigram模型下判斷語句是否合理](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day8_%E5%9F%BA%E7%A4%8E%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8BN_Gram%E4%BD%9C%E6%A5%AD.ipynb)**<br>
   
 
