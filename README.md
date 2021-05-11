@@ -240,11 +240,21 @@ N-Gram 常用的應用場景像是 **”選字推薦”、”錯字勘正”、�
 
 ### <a name="F">⑥ 期末實務專題</a><br>
 
-* #### 自製中文選字系統<br>
-* #### 建置新聞分類器<br>
-* #### 垃圾郵件偵測器<br>
-* #### 情緒分析<br>
-* #### 潛在語意分析<br>
-* #### 自動文件修改器(Trigram運用)<br>
-* #### 聊天機器人(單輪對話)<br>
-* #### Line Bot 聊天機器人(多輪對話)<br>
+* #### [自製中文選字系統](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(1)%20%E8%87%AA%E8%A3%BD%E4%B8%AD%E6%96%87%E9%81%B8%E5%AD%97%E7%B3%BB%E7%B5%B1)<br>
+1. 基礎篇<br>
+使用N-Gram製作中文選字系統<br>
+實作方法：<br>
+★ 計算出文本的 n (分子) 和 n-1(分母)的所有字詞次數，並建立字典(利用Counter())<br>
+★ prefix取n-1個字->當作輸入值用來預測第n個字<br>
+★ 將 n個字詞的字典中 prefix 開頭的字詞出現的次數 / n-1個字詞字典中 prefix 出現的次數(獲得機率)，並將結果存進list中，按機率大小順序排好<br>
+★ return 機率最大的 k 個字<br>
+
+2. 進階篇<br>
+
+* #### [建置新聞分類器](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(2)%20%E5%BB%BA%E8%A3%BD%E6%96%B0%E8%81%9E%E5%88%86%E9%A1%9E%E5%99%A8)<br>
+* #### [垃圾郵件偵測器](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(3)%20%E6%96%87%E4%BB%B6%E5%88%86%E9%A1%9E%EF%BC%9A%E5%9E%83%E5%9C%BE%E9%83%B5%E4%BB%B6%E5%81%B5%E6%B8%AC%E5%99%A8%20(Spam%20Detector))<br>
+* #### [情緒分析](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(4)%20%E6%96%87%E4%BB%B6%E5%88%86%E9%A1%9E%EF%BC%9A%E7%94%A2%E5%93%81%E8%A9%95%E5%88%86%E6%83%85%E7%B7%92%E5%88%86%E6%9E%90(Sentiment%20Analysis))<br>
+* #### [潛在語意分析](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(5)%20%E6%BD%9B%E5%9C%A8%E8%AA%9E%E6%84%8F%E5%88%86%E6%9E%90(Latent%20Semantics%20Analysis))<br>
+* #### [自動文件修改器(Trigram運用)](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(6)%20%E4%B8%89%E9%80%A3%E8%A9%9E(Trigram)%E4%B9%8B%E6%87%89%E7%94%A8)<br>
+* #### [聊天機器人(單輪對話)](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(7)%20Rule-based%20chatbot%20(%E5%96%AE%E8%BC%AA%E5%B0%8D%E8%A9%B1))<br>
+* #### [Line Bot 聊天機器人(多輪對話)](https://github.com/hyh009/NLP_ML_Marathon/tree/master/%E6%9C%9F%E6%9C%AB%E5%AF%A6%E5%8B%99%E5%B0%88%E9%A1%8C(8)%20Line%E8%81%8A%E5%A4%A9%E6%A9%9F%E5%99%A8%E4%BA%BA%20(%E5%A4%9A%E8%BC%AA%E6%83%85%E5%A2%83))<br>
