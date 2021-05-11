@@ -25,11 +25,31 @@
 * #### 中文斷詞<br>
 **1. Ckip<br>**
 **2. jieba<br>**
+
 * #### N-Gram<br>
-馬可夫假設<br>
+  將文本從頭開始每N個字取一次詞，取得 len(文本)-N+1 長度的序列(當中每個物件為N個字詞)，並計算條件機率。<br>
+  **◎馬可夫假設： 從目前狀態轉移 s 到下一個狀態 s' 的機率由 P(s'|s) 來決定 (在 s 的前提下 s’ 發生的機率)**<br>
+  
+  **原始算法↓**<br>
+   > W=(W1W2W3...Wm)<br>
+  P(W1W2W3...Wm) = P(W1) X P(W2|W1) X P(W3|W1,W2) X...X P(Wm|W1,W2...Wm-1) <br>
+  
+  **引入馬可夫假設(僅考慮前一個狀態轉移到下一個狀態的機率)↓**<br>
+   > W=(W1W2W3...Wm)<br>
+  P(Wm|W1,W2...Wm-1) = P(Wm|Wm-n+1,Wm-n+2...Wm-1)<br>
+  
+  常見的 N-Gram 模型有 Unigram(1-gram)，Bigram(2-gram)，Trigram(3-gram)。<br>
+  當N值愈大，對字詞的約束性愈大，具有愈高的辨識力，但同時複雜度也較高，需要更大的文本資料來訓練模型。<br>
+  
+  N-Gram 常用的應用場景像是 **”選字推薦”、”錯字勘正”、”分詞系統”** 等。**[作業-
+以Bigram模型下判斷語句是否合理](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day8_%E5%9F%BA%E7%A4%8E%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8BN_Gram%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  
 
 ### <a name="C">③ NLP 詞性標註</a><br>
 * #### jieba<br>
+  **中文 [作業-jieba詞性標註](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day11_jieba%E4%BD%9C%E6%A5%AD.ipynb)：** jieba -> import jieba.posseg as pseg -> pseg.cut(sentence,) 取得中文的詞型標註。<br>
+* #### NLTK<br>
+  **英文 [作業-詞幹詞條提取](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day13_%E8%A9%9E%E5%B9%B9%E8%A9%9E%E6%A2%9D%E6%8F%90%E5%8F%96%EF%BC%9AStemming%20and%20Lemmatization%E4%BD%9C%E6%A5%AD.ipynb)：** NLTK ->  from nltk import pos_tag -> pos_tag(word_tokenize(sent)) -> get tuple (word, tag)
 
 ### <a name="D">④ 經典詞彙向量化(詞袋分析/ TF-IDF / SVD&共現矩陣)</a><br>
 * #### Bag-of-words [作業-搭建一個bag of words模型](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day12_bag_of_words%E4%BD%9C%E6%A5%AD.ipynb)<br>
@@ -49,15 +69,26 @@
   **共現矩陣實現 [作業-計數方法詞向量實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day17_%E8%A8%88%E6%95%B8%E6%96%B9%E6%B3%95%E8%A9%9E%E5%90%91%E9%87%8F%E5%AF%A6%E4%BD%9C_%E4%BD%9C%E6%A5%AD.ipynb)：**<br>
   設置window，若window=2，在製作共現矩陣時則會將中間字的**前後各兩個字** +1(或是依照和中間字的距離加上計算後的權重數字)<br>
   但共現矩陣有2個缺點：<br>
-  1.維度龐大<br>
-  2.對高頻詞(常用詞)效果差<br>
+  ◎維度龐大<br>
+  ◎對高頻詞(常用詞)效果差<br>
   改善方法：<br>
-  1.用 **SVD奇異值分解(scikit-learn TruncatedSVD)** 降維。
-  2.計算 **PPMI(正向點間互資訊)** 將字詞出現頻率 P(x),P(y),P(x,y) 納入考慮，改善高頻詞效果差的問題<br>
-  利用 scikit-learn TruncatedSVD 時可使用 explained_variance_ratio_.sum() 了解降維後的資訊量大約等於多少比例的原始資料。<br>
+  ◎用 **SVD奇異值分解(scikit-learn TruncatedSVD)** 降維。<br>
+  ◎計算 **PPMI(正向點間互資訊)** 將字詞出現頻率 P(x),P(y),P(x,y) 納入考慮，改善高頻詞效果差的問題<br>
+  利用 **scikit-learn TruncatedSVD** 時可使用 **explained_variance_ratio_.sum()** 了解降維後的資料大約呈現多少比例的原始資料。<br>
   
-* #### 詞幹/詞條提取：Stemming and Lemmatization(英文)<br>
-
+* #### 詞幹/詞條提取：Stemming and Lemmatization(英文) [作業-詞幹詞條提取](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day13_%E8%A9%9E%E5%B9%B9%E8%A9%9E%E6%A2%9D%E6%8F%90%E5%8F%96%EF%BC%9AStemming%20and%20Lemmatization%E4%BD%9C%E6%A5%AD.ipynb)<br>
+  詞幹/詞條提取是將單詞的不同型態歸一化(Ex: makes made making -> make)，藉此來降低文本的複雜度。<br>
+  常見作法：<br>
+**1. Stemming**<br>
+  ★ 較為簡單的作法，制定規則來拆解單詞(rule-based)，像是看到 ing/ed 就去除。<br>
+  ★ 問題 → Overstemming(造成多個不同單字變成相同單字，使單字失去原意。) / Understemming(去除不夠乾淨，使單字失去原意，甚至會製造出多的意義不明的字。)<br>
+**2. Lemmatization**<br>
+  ★ 需要有字典來尋找單詞的原型，也可以利用 **POS tagging** 的訊息來給出更正確的答案。<br>
+   → Ex: 'lemmatization amusing : {}'.format(lemmatizer.lemmatize('amusing',pos = 'v'))  -->也可以不加pos<br>
+  ★ 通常Lemmatization的效果較好，但也較花時間。<br>
+  
+  ※現在有單詞拆解技術例如BERT的Wordpiece等，所以Stemming和Lemmatization已較少使用。<br>
+  
 ### <a name="E">⑤ NLP 經典機器學習模型(scikit-learn)</a><br>
 * #### 機器學習模型</font><br>
 **1. KNN [作業-KNN實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day20_21_KNN%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)**<br>
@@ -107,7 +138,7 @@
 | 泛化能力佳 抗noise能力較高| 對noise敏感 |
 | 使用均勻採樣bootstrap(抽中放回)|上個模型分錯的樣本，下次被抽中的機率較高|
 
-##### ※樹型(Tree base)模型衡量指標<br>
+**※樹型(Tree base)模型衡量指標**<br>
 **衡量訊息亂度&分割準則**<br>
 * ##### 熵(Entropy) & Gini 不純度（Gini Impurity = Gini Index)<br>
   ◎衡量一個序列中的混亂程度，值越高越混亂   →   最終目的是最終leaves的亂度最小化。<br>
@@ -126,11 +157,14 @@
   2. KFold(n_splits=10, random_state=None, shuffle=False) shuffle=True → 按順序切分<br>
   
 * #### Bias-Variance Tradeoff [作業-了解何謂Bias-Variance Tradeoff](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day25_Random_forest%E4%BD%9C%E6%A5%AD.ipynb)<br>
-  一般模型誤差可拆為三部分   →   **整體誤差(Total error)= 偏差(Bias) + 變異(variance) + 隨機誤差(random error => noise)**<br>
-  Bias： 訓練集的預測結果和實際答案的落差。<br>
-  Variance： 模型在測試資料集的表現 → 模型的泛化性指標。<br>
-  **Bias過大 → underfitting** ， 但 **Bias小 Variance過大 → overfitting**。<br>
-  Bias-Variance Tradeoff就是在Bias 和 Variance 中取得一個最佳的平衡，目的是使**整體誤差下降**。<br>
+一般模型誤差可拆為三部分<br>
+  →   **整體誤差(Total error)= 偏差(Bias) + 變異(variance) + 隨機誤差(random error => noise)**<br>
+
+**1. Bias**： 訓練集的預測結果和實際答案的落差。<br>
+**2. Variance**： 模型在測試資料集的表現 → 模型的泛化性指標。<br>
+
+  ★ **Bias過大 → underfitting** ， 但 **Bias小 Variance過大 → overfitting**。<br>
+  ★ Bias-Variance Tradeoff就是在Bias 和 Variance 中取得一個最佳的平衡，目的是使**整體誤差下降**。<br>
   
 * #### 延伸：其他Ensemble learning<br>
 **1. Stacking<br>**
