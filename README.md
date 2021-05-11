@@ -18,12 +18,14 @@
 
 ### <a name="A">① Python NLP 程式基礎</a><br>
 * #### 文字處理函數<br>
-  **[作業 String operation1](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day1-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
-  **[作業 String operation2](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day2-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
-* #### 正規表達式 
-  **[作業 利用正規表達式達到預期配對](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day3_Regex_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
-  **[作業 使用python正規表達式對資料進行清洗處理](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day4_Python_regular_expression_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
-★測試pattern可至[Regex101](https://regex101.com/)**<br>
+**[作業 String operation1](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day1-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+**[作業 String operation2](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day2-%20String%20operation%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
+* #### 正規表達式<br>
+★測試pattern可至 **[Regex101](https://regex101.com/)**<br>
+
+**[作業 利用正規表達式達到預期配對](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day3_Regex_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
+**[作業 使用python正規表達式對資料進行清洗處理](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day4_Python_regular_expression_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
 
 ### <a name="B">② 詞彙與分詞技術</a><br>
 * #### 斷詞的方法--經典中文斷詞法簡介(jieba)<br>
