@@ -22,13 +22,26 @@
 ★測試pattern可至[Regex101](https://regex101.com/)<br>
 
 ### <a name="B">② 詞彙與分詞技術</a><br>
-* #### 中文斷詞<br>
-**1. Ckip<br>**
-**2. jieba<br>**
+* #### 斷詞的方法<br>
+  ★
+  
+* #### 中文斷詞套件<br>
+**1. CkipTagger [作業-使用CkipTagger進行各項的斷詞操作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day7_CkipTagger%E4%BD%9C%E6%A5%AD_checkpoint.ipynb)<br>**<br>
+  ★中研院開發，繁中斷詞能力較好，但速度較慢。<br>
+  ★功能：WS：斷詞 / POS：詞性標注 / NER：實體辨識<br>
+  ★需先下載預訓練權重<br>
+  >from ckiptagger import data_utils, WS<br>
+   data_utils.download_data_gdown("./")<br>
+   
+**2. jieba [作業-使用Jieba進行各項的斷詞操作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day6_Jieba_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
 
-* #### N-Gram<br>
+  ★繁中斷詞要先設定繁中字典。 -> jieba.set_dictionary('./dict.txt.big')<br>
+  ★速度較CkipTagger快。<br>
+  ★分為精確模式(default)、全模式(斷出全部可能性)、搜尋模式、Paddle模式<br>
+
+* #### N-Gram [作業-N_Gram實作作業](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day9_%E5%9F%BA%E7%A4%8E%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8BN_Gram%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)<br>
   將文本從頭開始每N個字取一次詞，取得 len(文本)-N+1 長度的序列(當中每個物件為N個字詞)，並計算條件機率。<br>
-  **◎馬可夫假設： 從目前狀態轉移 s 到下一個狀態 s' 的機率由 P(s'|s) 來決定 (在 s 的前提下 s’ 發生的機率)**<br>
+  **馬可夫假設： 從目前狀態轉移 s 到下一個狀態 s' 的機率由 P(s'|s) 來決定 (在 s 的前提下 s’ 發生的機率)**<br>
   
   **原始算法↓**<br>
    > W=(W1W2W3...Wm)<br>
@@ -46,10 +59,11 @@
   
 
 ### <a name="C">③ NLP 詞性標註</a><br>
-* #### jieba<br>
-  **中文 [作業-jieba詞性標註](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day11_jieba%E4%BD%9C%E6%A5%AD.ipynb)：** jieba -> import jieba.posseg as pseg -> pseg.cut(sentence,) 取得中文的詞型標註。<br>
-* #### NLTK<br>
-  **英文 [作業-詞幹詞條提取](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day13_%E8%A9%9E%E5%B9%B9%E8%A9%9E%E6%A2%9D%E6%8F%90%E5%8F%96%EF%BC%9AStemming%20and%20Lemmatization%E4%BD%9C%E6%A5%AD.ipynb)：** NLTK ->  from nltk import pos_tag -> pos_tag(word_tokenize(sent)) -> get tuple (word, tag)
+* #### 中文<br>
+**1. CkipTagger：** from ckiptagger import POS -> pos = POS("./data") -> pos_sentence_list = pos(word_sentence_list) -> 取得中文的詞型標註序列(需先斷詞)。<br>
+**2. jieba [作業-jieba詞性標註](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day11_jieba%E4%BD%9C%E6%A5%AD.ipynb)：** import jieba.posseg as pseg -> pseg.cut(sentence,) 取得中文的詞型標註。<br>
+* #### 英文<br>
+**1. NLTK [作業-詞幹詞條提取](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day13_%E8%A9%9E%E5%B9%B9%E8%A9%9E%E6%A2%9D%E6%8F%90%E5%8F%96%EF%BC%9AStemming%20and%20Lemmatization%E4%BD%9C%E6%A5%AD.ipynb)：** from nltk import pos_tag -> pos_tag(word_tokenize(sent)) -> get tuple (word, tag)
 
 ### <a name="D">④ 經典詞彙向量化(詞袋分析/ TF-IDF / SVD&共現矩陣)</a><br>
 * #### Bag-of-words [作業-搭建一個bag of words模型](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day12_bag_of_words%E4%BD%9C%E6%A5%AD.ipynb)<br>
@@ -91,12 +105,15 @@
   
 ### <a name="E">⑤ NLP 經典機器學習模型(scikit-learn)</a><br>
 * #### 機器學習模型</font><br>
+
 **1. KNN [作業-KNN實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day20_21_KNN%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
   ★ 適合資料少、維度小的資料。<br>
   ★ k值過大易underfitting;k值過小易overfitting。<br>
   ★ k可以先設定成k\*\*0.5再進行調整，且應盡量設成奇數(防止有票數相同無法判別類別的問題)。<br>
 
 **2. Naïve Bayes [作業-Naive_Bayes實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day23_Naive_Bayes%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
   ★ 為什麼naïve？   →    假設所有的輸入特徵都是**彼此獨立**、且**不管順序**。<br>
   ★ scikit-learn API比較↓
 | **scikit-learn API** |**Note** |
@@ -106,6 +123,7 @@
 | Naïve Bayes Binary| 特徵必須為**二元分類** 0/1 |
 
 **3. Decision Tree [作業-計算亂度&算法比較](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day24_%E6%B1%BA%E7%AD%96%E6%A8%B9%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
   ★ 適合處理有缺失值屬性的樣本。<br>
   ★ 容易overfitting。<br>
   ★ Decision Tree 算法比較↓<br>
@@ -116,6 +134,7 @@
 | CART|Gini Index|
 
 **4. Random Forest [作業-實作隨機森林](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day27_%E5%AF%A6%E4%BD%9C%E6%A8%B9%E5%9E%8B%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
   ★ Decision Tree 的集成學習(Ensemble learning) Bagging。<br>
   ★ 假設每個分類氣兼具有差異 & 每個分類自單獨表現夠好(Accuracy>0.5)<br>
   ★ 隨機抽選樣本和特徵，相較Decision Tree不易overfitting。<br>
@@ -123,12 +142,13 @@
   ★ 對資料量小 & 特徵少的資料效果不佳。<br>
 
 **5. Adaboost [作業-用樹型模型進行文章分類](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day28_%E5%AF%A6%E4%BD%9CTreeBase%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
+
   ★ Decision Tree 的集成學習(Ensemble learning) Boosting。<br>
   ★ 將模型以序列的方式串接，透過過加強學習前一步的錯誤，來增強這一步模型的表現。<br>
   ★ 對noise敏感。<br>
   ★ 訓練時間較長。<br>
 
-##### ※Random Forest & Adaboost 比較<br>
+**※Random Forest & Adaboost 比較**<br>
 | **Random Forest** |**Adaboost** |
 | :-----: | :-----:|
 | 每個Decision Tree都是Full sized，不會事先決定最大分支數| 每個Decision Tree通常只有一個節點&2片葉(stump)|
@@ -150,13 +170,16 @@
   2. IG = node訊息亂度 - sample比例(右) X 右leaf訊息亂度 - sample比例(左) X 左leaf訊息亂度。<br>
 
 * #### 交叉驗證(cross validation)<br>
+
 **1. KFold [作業 實現K-fold分割資料](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day19_K_fold%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+
   將**訓練集切成K份**,其中K-1份當作訓練資料，而1份則作為驗證資料。<br>
   在scikit-learn中可以用以下方式來實現：
   1. cross_val_score(clf, X, y, cv=5) ※clf=分類模型、cv=分成幾份(K)<br>
   2. KFold(n_splits=10, random_state=None, shuffle=False) shuffle=True → 按順序切分<br>
   
 * #### Bias-Variance Tradeoff [作業-了解何謂Bias-Variance Tradeoff](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day25_Random_forest%E4%BD%9C%E6%A5%AD.ipynb)<br>
+
 一般模型誤差可拆為三部分<br>
   →   **整體誤差(Total error)= 偏差(Bias) + 變異(variance) + 隨機誤差(random error => noise)**<br>
 
