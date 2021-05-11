@@ -44,13 +44,16 @@
   
 * #### 共現矩陣→PPMI→SVD [作業-詞庫&共現矩陣的優缺點](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day16_%E8%A8%88%E6%95%B8%E6%96%B9%E6%B3%95%E8%A9%9E%E5%90%91%E9%87%8F%E4%BB%8B%E7%B4%B9_%E4%BD%9C%E6%A5%AD.ipynb)<br>
   分布假說：假設字詞本身沒有意義，字詞意義是根據該詞的”上下文（context）”形成的。<br>
-  承上，因為相似的字詞會有類似的上下文，所以可以透過計數周圍(window)的字詞來表達特定字詞的向量(共現矩陣)。<br>
+   →可以透過計數周圍(window)的字詞來表達特定字詞的向量(共現矩陣)。<br>
+   
   **共現矩陣實現 [作業-計數方法詞向量實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day17_%E8%A8%88%E6%95%B8%E6%96%B9%E6%B3%95%E8%A9%9E%E5%90%91%E9%87%8F%E5%AF%A6%E4%BD%9C_%E4%BD%9C%E6%A5%AD.ipynb)：**<br>
   設置window，若window=2，在製作共現矩陣時則會將中間字的**前後各兩個字** +1(或是依照和中間字的距離加上計算後的權重數字)<br>
-  但共現矩陣有兩個缺點：<br>
+  但共現矩陣有2個缺點：<br>
   1.維度龐大<br>
   2.對高頻詞(常用詞)效果差<br>
-  所以可以用 **PPMI(正向點間互資訊)** 解決高頻詞效果差的問題，以及用 **SVD奇異值分解(scikit-learn TruncatedSVD)** 降維解決維度龐大的問題。<br>
+  改善方法：<br>
+  1.用 **SVD奇異值分解(scikit-learn TruncatedSVD)** 降維。
+  2.計算 **PPMI(正向點間互資訊)** 將字詞出現頻率 P(x),P(y),P(x,y) 納入考慮，改善高頻詞效果差的問題<br>
   利用 scikit-learn TruncatedSVD 時可使用 explained_variance_ratio_.sum() 了解降維後的資訊量大約等於多少比例的原始資料。<br>
   
 * #### 詞幹/詞條提取：Stemming and Lemmatization(英文)<br>
