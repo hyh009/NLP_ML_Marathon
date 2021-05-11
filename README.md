@@ -14,12 +14,12 @@
 [⑥ 期末實務專題](#F)<br>
 
 
-## 重點整理
+## 學習重點整理
 
 ### <a name="A">① Python NLP 程式基礎</a><br>
 * #### 文字處理函數<br>
 * #### 正規表達式<br>
-★測試pattern可[至此](https://regex101.com/)<br>
+★測試pattern可至[Regex101](https://regex101.com/)<br>
 
 ### <a name="B">② 詞彙與分詞技術</a><br>
 * #### 中文斷詞<br>
@@ -32,48 +32,68 @@
 * #### jieba<br>
 
 ### <a name="D">④ 經典詞彙向量化(詞袋分析/ TF-IDF / SVD&共現矩陣)</a><br>
-* #### Bag-of-words<br>
-* #### TF-IDF<br>
-* #### 共現矩陣→PPMI→SVD<br>
+* #### Bag-of-words [作業-搭建一個bag of words模型](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day12_bag_of_words%E4%BD%9C%E6%A5%AD.ipynb)<br>
+  文字向量長度 = 文本所有unique文字數。<br>
+  先建立word和index的對應字典，計算文章向量時，抓出每個文章內的字，出現一次就在對應的index上+1。<br>
+  文本Bag-of-words矩陣大小 = 文章數 X unique文字數。<br>
+  
+* #### TF-IDF [作業-搭建一個TFIDF 模型](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day15_tfidf%E4%BD%9C%E6%A5%AD.ipynb)<br>
+  TF(詞頻)：一個單詞出現在一個文件的次數/該文件中所有單詞的數量<br>
+  IDF： Log (所有文件的數目/包含這個單詞的文件數目)<br>
+  TF-IDF的值代表文字對於文章的重要性（可藉此去除，或將一些常用詞權重降低）。<br>
+  
+* #### 共現矩陣→PPMI→SVD [作業-詞庫&共現矩陣的優缺點](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day16_%E8%A8%88%E6%95%B8%E6%96%B9%E6%B3%95%E8%A9%9E%E5%90%91%E9%87%8F%E4%BB%8B%E7%B4%B9_%E4%BD%9C%E6%A5%AD.ipynb)<br>
+  分布假說：假設字詞本身沒有意義，字詞意義是根據該詞的”上下文（context）”形成的。<br>
+  承上，因為相似的字詞會有類似的上下文，所以可以透過計數周圍(window)的字詞來表達特定字詞的向量(共現矩陣)。<br>
+  **共現矩陣實現 [作業-計數方法詞向量實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day17_%E8%A8%88%E6%95%B8%E6%96%B9%E6%B3%95%E8%A9%9E%E5%90%91%E9%87%8F%E5%AF%A6%E4%BD%9C_%E4%BD%9C%E6%A5%AD.ipynb)：**<br>
+  設置window，若window=2，在製作共現矩陣時則會將中間字的**前後各兩個字** +1(或是依照和中間字的距離加上計算後的權重數字)<br>
+  但共現矩陣有兩個缺點：<br>
+  1.維度龐大<br>
+  2.對高頻詞(常用詞)效果差<br>
+  所以可以用 **PPMI(正向點間互資訊)** 解決高頻詞效果差的問題，以及用 **SVD奇異值分解(scikit-learn TruncatedSVD)** 降維解決維度龐大的問題。<br>
+  利用 scikit-learn TruncatedSVD 時可使用 explained_variance_ratio_.sum() 了解降維後的資訊量大約等於多少比例的原始資料。<br>
+  
 * #### 詞幹/詞條提取：Stemming and Lemmatization(英文)<br>
+
 ### <a name="E">⑤ NLP 經典機器學習模型(scikit-learn)</a><br>
 * #### 機器學習模型</font><br>
-**1. KNN<br>**
-★ 適合資料少、維度小的資料。<br>
-★ k值過大易underfitting;k值過小易overfitting。<br>
-★ k可以先設定成k\*\*0.5再進行調整，且應盡量設成奇數(防止有票數相同無法判別類別的問題)。<br>
+**1. KNN [作業-KNN實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day20_21_KNN%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  ★ 適合資料少、維度小的資料。<br>
+  ★ k值過大易underfitting;k值過小易overfitting。<br>
+  ★ k可以先設定成k\*\*0.5再進行調整，且應盡量設成奇數(防止有票數相同無法判別類別的問題)。<br>
 
-**2. Naïve Bayes<br>**
-★ 為什麼naïve？   →    假設所有的輸入特徵都是**彼此獨立**、且**不管順序**。<br>
-★ scikit-learn API比較↓
+**2. Naïve Bayes [作業-Naive_Bayes實作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day23_Naive_Bayes%E5%AF%A6%E4%BD%9C%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  ★ 為什麼naïve？   →    假設所有的輸入特徵都是**彼此獨立**、且**不管順序**。<br>
+  ★ scikit-learn API比較↓
 | **scikit-learn API** |**Note** |
 | :-------------: | :-----:|
-| Naïve Bayes Multinomial|--- |
+| Naïve Bayes Multinomial|特徵為離散型資料可使用 |
 | Naïve Bayes Gaussian| 假設特徵成**高斯常態分布** | 
 | Naïve Bayes Binary| 特徵必須為**二元分類** 0/1 |
 
 **3. Decision Tree [作業-計算亂度&算法比較](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day24_%E6%B1%BA%E7%AD%96%E6%A8%B9%E4%BD%9C%E6%A5%AD.ipynb)**<br>
-★ 適合處理有缺失值屬性的樣本。<br>
-★ 容易overfitting。<br>
-★ Decision Tree 算法比較↓<br>
+  ★ 適合處理有缺失值屬性的樣本。<br>
+  ★ 容易overfitting。<br>
+  ★ Decision Tree 算法比較↓<br>
 | **算法名稱** |**分割準則** |
 | :-------------: | :-----:|
 | ID3| Entropy(Information Gain)  |
 | C4.5| Entropy(Information Gain Ratio) | 
 | CART|Gini Index|
 
-**4. Random Forest [作業-實作隨機森林](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day27_%E5%AF%A6%E4%BD%9C%E6%A8%B9%E5%9E%8B%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD.ipynb)<br>**
-★ Decision Tree 的集成學習(Ensemble learning) Bagging。<br>
-★ 假設每個分類氣兼具有差異 & 每個分類自單獨表現夠好(Accuracy>0.5)<br>
-★ 隨機抽選樣本和特徵，相較Decision Tree不易overfitting。<br>
-★ 抗noise力較好(採隨機抽樣)，泛化性較佳。<br>
-★ 對資料量小 & 特徵少的資料效果不佳。<br>
+**4. Random Forest [作業-實作隨機森林](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day27_%E5%AF%A6%E4%BD%9C%E6%A8%B9%E5%9E%8B%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  ★ Decision Tree 的集成學習(Ensemble learning) Bagging。<br>
+  ★ 假設每個分類氣兼具有差異 & 每個分類自單獨表現夠好(Accuracy>0.5)<br>
+  ★ 隨機抽選樣本和特徵，相較Decision Tree不易overfitting。<br>
+  ★ 抗noise力較好(採隨機抽樣)，泛化性較佳。<br>
+  ★ 對資料量小 & 特徵少的資料效果不佳。<br>
 
-**5. Adaboost [作業-用樹型模型進行文章分類](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day28_%E5%AF%A6%E4%BD%9CTreeBase%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD%20.ipynb)<br>**
-★ Decision Tree 的集成學習(Ensemble learning) Boosting。<br>
-★ 將模型以序列的方式串接，透過過加強學習前一步的錯誤，來增強這一步模型的表現。<br>
-★ 對noise敏感。<br>
-★ 訓練時間較長。<br>
+**5. Adaboost [作業-用樹型模型進行文章分類](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day28_%E5%AF%A6%E4%BD%9CTreeBase%E6%A8%A1%E5%9E%8B_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
+  ★ Decision Tree 的集成學習(Ensemble learning) Boosting。<br>
+  ★ 將模型以序列的方式串接，透過過加強學習前一步的錯誤，來增強這一步模型的表現。<br>
+  ★ 對noise敏感。<br>
+  ★ 訓練時間較長。<br>
+
 ##### ※Random Forest & Adaboost 比較<br>
 | **Random Forest** |**Adaboost** |
 | :-----: | :-----:|
@@ -83,6 +103,7 @@
 | 樹的順序無影響|樹間有關連(序列架構)，順序很重要|
 | 泛化能力佳 抗noise能力較高| 對noise敏感 |
 | 使用均勻採樣bootstrap(抽中放回)|上個模型分錯的樣本，下次被抽中的機率較高|
+
 ##### ※樹型(Tree base)模型衡量指標<br>
 **衡量訊息亂度&分割準則**<br>
 * ##### 熵(Entropy) & Gini 不純度（Gini Impurity = Gini Index)<br>
@@ -95,17 +116,23 @@
   2. IG = node訊息亂度 - sample比例(右) X 右leaf訊息亂度 - sample比例(左) X 左leaf訊息亂度。<br>
 
 * #### 交叉驗證(cross validation)<br>
-**1. KFold<br>**
-
+**1. KFold [作業 實現K-fold分割資料](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day19_K_fold%E4%BD%9C%E6%A5%AD.ipynb)**<br>
+  將**訓練集切成K份**,其中K-1份當作訓練資料，而1份則作為驗證資料。<br>
+  在scikit-learn中可以用以下方式來實現：
+  1. cross_val_score(clf, X, y, cv=5) ※clf=分類模型、cv=分成幾份(K)<br>
+  2. KFold(n_splits=10, random_state=None, shuffle=False) shuffle=True → 按順序切分<br>
+  
 * #### Bias-Variance Tradeoff [作業-了解何謂Bias-Variance Tradeoff](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day25_Random_forest%E4%BD%9C%E6%A5%AD.ipynb)<br>
   一般模型誤差可拆為三部分   →   **整體誤差(Total error)= 偏差(Bias) + 變異(variance) + 隨機誤差(random error => noise)**<br>
   Bias： 訓練集的預測結果和實際答案的落差。<br>
   Variance： 模型在測試資料集的表現 → 模型的泛化性指標。<br>
-  **Bias過大 → underfitting** ， 但 **Bias小 Variance過大 → overfitting**。
-  Bias-Variance Tradeoff就是在Bias 和 Variance 中取得一個最佳的平衡，目的是使**整體誤差下降**。
+  **Bias過大 → underfitting** ， 但 **Bias小 Variance過大 → overfitting**。<br>
+  Bias-Variance Tradeoff就是在Bias 和 Variance 中取得一個最佳的平衡，目的是使**整體誤差下降**。<br>
+  
 * #### 延伸：其他Ensemble learning<br>
 **1. Stacking<br>**
 **2. Blending<br>**
+
 ### <a name="F">⑥ 期末實務專題</a><br>
 
 * #### 自製中文選字系統<br>
