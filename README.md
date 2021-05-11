@@ -44,7 +44,7 @@
 ★ k可以先設定成k\*\*0.5再進行調整，且應盡量設成奇數(防止有票數相同無法判別類別的問題)。<br>
 
 **2. Naïve Bayes<br>**
-★ 為什麼naïve？   → 假設所有的輸入特徵都是**彼此獨立**、且**不管順序**。<br>
+★ 為什麼naïve？   →    假設所有的輸入特徵都是**彼此獨立**、且**不管順序**。<br>
 ★ scikit-learn API比較↓
 | **scikit-learn API** |**Note** |
 | :-------------: | :-----:|
@@ -52,9 +52,31 @@
 | Naïve Bayes Gaussian| 假設特徵成**高斯常態分布** | 
 | Naïve Bayes Binary| 特徵必須為**二元分類** 0/1 |
 
-**3. Decision Tree<br>**
+**3. Decision Tree**<br>
+★ 適合處理有缺失值屬性的樣本。<br>
+★ 容易overfitting。<br>
+★ Decision Tree 算法比較↓<br>
+| **算法名稱** |**分割準則** |
+| :-------------: | :-----:|
+| ID3| Entropy |
+| C4.5| Entropy(衡量IG時用Gain Ratio) | 
+| CART|Gini Index|
+
 **4. Random Forest<br>**
+
 **5. Adaboost<br>**
+
+#### ※樹型(Tree base)模型衡量指標<br>
+**衡量訊息亂度&分割準則**<br>
+* #### 熵(Entropy) & Gini 不純度（Gini Impurity = Gini Index)<br>
+◎衡量一個序列中的混亂程度，值越高越混亂   →   最終目的是最終leaves的亂度最小化。<br>
+◎數值都在 0 ~ 1之間，0 代表皆為同樣的值(類別)。<br>
+* #### Informarion Gain (IG)<br>
+◎計算方式：<br>
+1. 先各計算node和分支後的左leaf、右leaf的訊息亂度 & 左右leaf的sample數比例。<br>
+   →  Ex: 右leaf的sample比例 = 右邊sample數/全部sample數。<br>
+2. IG = node訊息亂度 - sample比例(右) X 右leaf訊息亂度 - sample比例(左) X 左leaf訊息亂度。<br>
+
 * #### 交叉驗證(cross validation)<br>
 **1. KFold<br>**
 * #### 延伸：其他Ensemble learning<br>
