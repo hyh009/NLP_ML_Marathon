@@ -84,8 +84,6 @@
   ★中研院開發，繁中斷詞能力較好，但速度較慢。<br>
   ★功能：WS：斷詞 / POS：詞性標注 / NER：實體辨識<br>
   ★需先下載預訓練權重<br>
-  >from ckiptagger import data_utils, WS<br>
-   data_utils.download_data_gdown("./")<br>
    
 **2. jieba [作業-使用Jieba進行各項的斷詞操作](https://github.com/hyh009/NLP_ML_Marathon/blob/master/Day6_Jieba_%E4%BD%9C%E6%A5%AD%20.ipynb)**<br>
 
